@@ -2,10 +2,14 @@ require('pry-byebug')
 require_relative('../album')
 require_relative('../artist')
 
+Album.delete_all()
+Artist.delete_all()
+
 artist_1 = {
   'name' => 'Queen'
 }
 artist1 = Artist.new(artist_1)
+
 artist_2 = {
   'name' => 'Pink Floyd'
 }
@@ -49,3 +53,19 @@ album_4 = {
 
 album4 = Album.new(album_4)
 album4.save()
+
+artists_list = Artist.list_all()
+p artists_list
+puts ""
+
+albums_list = Album.list_all()
+p albums_list
+puts ""
+
+albums_by_artists_1 = artist1.list_albums_by_artist()
+p albums_by_artists_1
+puts ""
+
+artist_for_album_2 = album2.show_artist_for_an_album()
+p artist_for_album_2
+puts ""

@@ -4,7 +4,7 @@ require_relative('album')
 
 class Artist
 
-  attr_accessor :id, :name
+  attr_reader :id, :name
 
   def initialize(new_artist)
     @id = new_artist['id'].to_i
@@ -18,6 +18,27 @@ class Artist
     values = [@name]
     artists_hash =  SqlRunner.run(sql, values)
     @id = artists_hash[0]["id"].to_i
+  end
+
+  def self.list_all()
+    sql = "SELECT * FROM artists;"
+    artists_hash = SqlRunner.run(sql)
+    artists_object = artists_hash.map {|artist| Artist.new(artist)}
+    return artists_object
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM artists;"
+    SqlRunner.run(sql)
+  end
+
+  def list_albums_by_artist()
+    sql = "SELECT * FROM albums
+    WHERE artist_id = $1;"
+    values =[@id]
+    albums_hash = SqlRunner.run(sql, values)
+    albums_object = albums_hash.map {|album| Album.new(album)}
+    return albums_object
   end
 
 end
