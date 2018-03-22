@@ -69,3 +69,18 @@ puts ""
 artist_for_album_2 = album2.show_artist_for_an_album()
 p artist_for_album_2
 puts ""
+
+
+artist2.name = "Prince"
+artist2.edit_artist()
+artists_list = Artist.list_all()
+p artists_list
+puts ""
+
+album3.title = "Stairway to Heaven"
+album3.genre = "Funk"
+album3.artist_id = artist2.id
+album3.edit_album()
+albums_list = Album.list_all()
+p albums_list
+puts ""

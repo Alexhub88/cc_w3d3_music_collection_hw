@@ -4,7 +4,7 @@ require_relative('artist')
 class Album
 
   attr_reader :id
-  attr_accessor :title, :genre
+  attr_accessor :title, :genre, :artist_id
 
   def initialize(new_album)
     @id = new_album["id"].to_i
@@ -41,6 +41,13 @@ class Album
     artist_hash = SqlRunner.run(sql, values)
     artist_object = artist_hash.map {|artist| Artist.new(artist)}
     return artist_object
+  end
+
+  def edit_album()
+    sql = "UPDATE albums
+    SET (title, genre, artist_id) = ($1, $2, $3) WHERE id = $4;"
+    values =[@title, @genre, @artist_id, @id]
+    SqlRunner.run(sql, values)
   end
 
 end
